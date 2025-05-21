@@ -1,0 +1,71 @@
+<header>
+  <nav class="navbar">
+    <a routerLink="/" class="logo">Decidely</a>
+  </nav>
+</header>
+
+<main class="main-content">
+  <div class="container">
+
+    <div class="form-container">
+      <h2>Submit Your Argument</h2>
+      <form class="decision-form" (ngSubmit)="submitOne()">
+        <div class="form-group">
+          <label for="speaker">Speaker</label>
+          <input
+            id="speaker"
+            name="speaker"
+            placeholder="Alice"
+            required
+            [(ngModel)]="oneReq.speaker"
+          />
+        </div>
+        <div class="form-group">
+          <label for="text">Argument</label>
+          <input
+            id="text"
+            name="text"
+            placeholder="Your argument here"
+            required
+            [(ngModel)]="oneReq.text"
+          />
+        </div>
+        <button type="submit" class="btn">Send</button>
+      </form>
+    </div>
+
+    <div class="results-container">
+      <h2 class="results-title">Feedback</h2>
+      <div *ngIf="oneDecision" class="results-content">
+        <strong>{{ oneDecision.speaker }} : {{ oneDecision.text }}</strong>
+         <div>{{ oneDecision.willWork }}</div>
+        <div *ngIf="oneDecision.reason" class="reason">
+          Reason: {{ oneDecision.reason }}
+        </div>
+      </div>
+
+      <button
+        class="btn"
+        (click)="loadSummary()"
+        [disabled]="history.length === 0"
+        style="margin-top:1.5rem;"
+      >
+        Get Summary
+      </button>
+    </div>
+
+    <div
+      class="results-container"
+      *ngIf="summaryResp"
+    >
+      <h2 class="results-title">Summary</h2>
+      <div class="results-content">
+        <div><strong>Total arguments:</strong> {{ summaryResp.totalArguments }}</div>
+        <p>{{ summaryResp.summary }}</p>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+
